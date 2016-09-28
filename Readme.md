@@ -20,8 +20,6 @@ References:
 2. [How to zip/unzip files](https://vcpptips.wordpress.com/tag/copyhere/)
 
 
-If you have any question or would like to contribute code, please email to xiaofaye@msn.com.
-
 Usage
 -------------------
 
