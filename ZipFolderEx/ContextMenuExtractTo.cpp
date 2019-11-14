@@ -74,7 +74,9 @@ ContextMenuExtractTo::~ContextMenuExtractTo(void)
 {
 	if (sfi.hIcon != NULL)
 		DestroyIcon(sfi.hIcon);
-
+	if (hBitmap != NULL)
+		DeleteObject(hBitmap);
+	
     InterlockedDecrement(&g_cDllRef);
 }
 
