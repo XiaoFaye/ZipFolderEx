@@ -5,7 +5,7 @@ A Brief Intro
 -------------------
 
 ZipFolderEx is a utility that extends the built-in ZIP compress functionality of Windows.
-With ZipFolderEx, you can easily to unzip files wihout third-party softwares.
+With ZipFolderEx, you can easily to unzip files without third-party softwares.
 
 Screenshot:
 
