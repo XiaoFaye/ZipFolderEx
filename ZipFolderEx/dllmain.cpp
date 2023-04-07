@@ -128,19 +128,6 @@ STDAPI DllRegisterServer(void)
         return hr;
     }
 
-    // Register the component.
-    //hr = RegisterInprocServer(szModule, CLSID_FileContextMenuExt, 
-    //    L"CppShellExtContextMenuHandler.FileContextMenuExt Class", 
-    //    L"Apartment");
-    //if (SUCCEEDED(hr))
-    //{
-    //    // Register the context menu handler. The context menu handler is 
-    //    // associated with the .cpp file class.
-    //    hr = RegisterShellExtContextMenuHandler(L".zip", 
-    //        CLSID_FileContextMenuExt, 
-    //        L"CppShellExtContextMenuHandler.FileContextMenuExt");
-    //}
-
 	// Register the component.
 	hr2 = RegisterInprocServer(szModule, CLSID_FileContextMenuExt,
 		L"CppShellExtContextMenuHandler.ContextMenuExtractTo Class",
@@ -152,6 +139,8 @@ STDAPI DllRegisterServer(void)
 		hr2 = RegisterShellExtContextMenuHandler(L".zip",
 			CLSID_FileContextMenuExt,
 			L"CppShellExtContextMenuHandler.ContextMenuExtractTo");
+
+        hr2 = RegDeleteKey(HKEY_CLASSES_ROOT, L"CompressedFolder\\ShellEx\\ContextMenuHandlers\\{b8cdcb65-b1bf-4b42-9428-1dfdb7ee92af}");
 	}
 
     return hr2;
@@ -181,6 +170,14 @@ STDAPI DllUnregisterServer(void)
         // Unregister the context menu handler.
         hr = UnregisterShellExtContextMenuHandler(L".zip", 
             CLSID_FileContextMenuExt);
+
+        HKEY hk;
+        DWORD dwDisp;
+        hr = RegCreateKeyEx(HKEY_CLASSES_ROOT, L"CompressedFolder\\ShellEx\\ContextMenuHandlers\\{b8cdcb65-b1bf-4b42-9428-1dfdb7ee92af}", 0, NULL, REG_OPTION_NON_VOLATILE,
+            KEY_WRITE, NULL, &hk, &dwDisp);
+
+        wchar_t* keyValue = L"Compressed (zipped) Folder Menu";
+        RegSetValueEx(hk, L"", 0, REG_SZ, (LPBYTE)keyValue, (DWORD)(lstrlen(keyValue) + 1) * sizeof(TCHAR));
     }
 
     return hr;
